@@ -18,7 +18,10 @@ export const GET = async () => {
 		feed_url: `${BASE_URL}/feed.xml`,
 		site_url: `${BASE_URL}`,
 		language: 'en',
-		pubDate: new Date().toUTCString()
+		pubDate: new Date().toUTCString(),
+		custom_namespaces: {
+			media: 'http://search.yahoo.com/mrss/'
+		}
 	});
 
 	// Get all markdown files from the posts directory

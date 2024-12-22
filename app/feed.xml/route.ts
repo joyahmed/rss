@@ -54,7 +54,11 @@ export const GET = async () => {
 			custom_elements: [
 				{
 					'media:content': {
-						_attr: { url: imageUrl, medium: 'image' }
+						_attr: {
+							url: imageUrl,
+							medium: 'image',
+							type: 'image/webp' // or 'image/png', depending on your image format
+						}
 					}
 				},
 				{

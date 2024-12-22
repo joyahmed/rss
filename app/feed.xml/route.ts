@@ -22,21 +22,42 @@ export const GET = async () => {
 	const allPosts = await getPosts();
 
 	if (allPosts) {
-		allPosts.map(post => {
+		allPosts.forEach(post => {
+			// Ensure `post.image` is resolved properly
+			const imageUrl = post.image ? `${BASE_URL}${post.image}` : '';
+
+			// Serialize the content if necessary
+			const postContent =
+				typeof post.content === 'string'
+					? post.content
+					: JSON.stringify(post.content);
+
 			feed.item({
 				title: post.title,
 				description: post.description,
 				url: `${BASE_URL}/posts/${post.slug}`,
-				//categories: post.tags || [],
 				author: 'Joy Ahmed',
-				date: post.date
+				date: post.date,
+				custom_elements: [
+					{
+						'content:encoded': `<![CDATA[
+							<div>
+								<h1>${post.title}</h1>
+								<h2>${post.secondary_title || ''}</h2>
+								<p>${post.description}</p>
+								${imageUrl ? `<img src="${imageUrl}" alt="${post.title}" />` : ''}
+								<p>${postContent}</p>
+							</div>
+						]]>`
+					}
+				]
 			});
 		});
 	}
 
 	return new Response(feed.xml({ indent: true }), {
 		headers: {
-			'Content-Type': 'application/atom+xml; charset=utf-8 '
+			'Content-Type': 'application/rss+xml; charset=utf-8'
 		}
 	});
 };

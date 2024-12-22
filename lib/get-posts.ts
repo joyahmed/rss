@@ -28,6 +28,7 @@ export const getPosts = (): Post[] => {
 			slug,
 			title: data.title,
 			description: data.description,
+			content: data,
 			date: data.date,
 			author: data.author || 'Joy Ahmed' // Optional fallback
 		};

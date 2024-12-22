@@ -44,7 +44,7 @@ export const GET = async () => {
 				date: post.date,
 				custom_elements: [
 					{
-						'content:encoded': `<![CDATA[
+						'content:encoded': `
               <div>
                 <h1>${post.title}</h1>
                 <h2>${post.secondary_title || ''}</h2>
@@ -56,7 +56,7 @@ export const GET = async () => {
 								}
                 <div>${htmlContent}</div>
               </div>
-            ]]>`
+            `
 					}
 				]
 			});
